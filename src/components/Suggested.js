@@ -44,9 +44,9 @@ export default function Suggested({ target, initialState, onSelect }) {
     if (item.includes(userInput)) {
       const index = item.indexOf(userInput);
       const head = item.substring(0, index);
-      const tail = item.substring(index + 1);
-      console.log({ head, tail })
-      return `${head}<span class="Suggestion__item--matched">${tail}</span>`;
+      const tail = item.substring(index + userInput.length);
+
+      return `${head}<span class="Suggestion__item--matched">${userInput}</span>${tail}`;
     }
 
     return `${item}`;
