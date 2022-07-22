@@ -1,4 +1,4 @@
-export default function Suggested({ target, initialState, onSelect }) {
+export default function Suggested({ target, initialState, onSelect, onFocusOut }) {
   this.element = document.createElement('div');
   this.element.classList.add("Suggestion");
   target.appendChild(this.element);
@@ -28,6 +28,7 @@ export default function Suggested({ target, initialState, onSelect }) {
           ${items.map((item, index) => `
             <li
               class="${index === selectedIndex ? "Suggestion__item--selected" : ""}"
+              data-itemIndex=${index}
             >
               ${this.listItem(item, userInput)}
             </li>`
@@ -72,7 +73,6 @@ export default function Suggested({ target, initialState, onSelect }) {
         break;
       case "Enter":
         const enteredLanguage = items[result];
-        e.target.value = ''
         onSelect(enteredLanguage);
         return;
       default:
@@ -83,10 +83,15 @@ export default function Suggested({ target, initialState, onSelect }) {
 
   target.addEventListener('click', e => {
     const { items } = this.state;
-    const clickedLanguage = e.target.textContent;
+    if (!items || items.length === 0) return;
 
-    if (items.indexOf(clickedLanguage) < 0) return;
-    onSelect(clickedLanguage);
-    alert(clickedLanguage)
+    if (e.target.className === 'App') {
+      onFocusOut();
+      return;
+    };
+
+    const clickedLanguage = e.target.dataset.itemindex;
+    if (!clickedLanguage) return;
+    onSelect(items[clickedLanguage]);
   })
 }

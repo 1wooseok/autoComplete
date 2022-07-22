@@ -32,7 +32,6 @@ export default function SearchInput({ target, initialState, onChange }) {
 
   this.element.addEventListener('submit', e => {
     e.preventDefault();
-    this.setState();
   })
 
 }
