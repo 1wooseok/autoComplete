@@ -1,5 +1,4 @@
-const BASE_URL = `https://wr4a6p937i.execute-api.ap-northeast-2.amazonaws.com/dev`
-
+import END_POINT from "./END_POINT";
 export const queryLang = async (lang) => {
     const SEARCH_URL = BASE_URL + `/languages?keyword=${lang}`;
     try {
